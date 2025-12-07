@@ -1,0 +1,35 @@
+//testbench for priority encoder
+module pri_enc3_8_tb();
+  reg [7:0] in;
+  wire [2:0] y;
+  wire idle;
+  integer i;
+
+  pri_enc3_8 dut(in, y, idle);
+
+  task initialize;
+    begin
+      in = 8'b0;
+    end
+  endtask
+
+  task inputs(input [7:0] x);
+    begin
+      in = x;
+    end
+  endtask
+
+  initial begin
+    initialize;
+    for (i = 0; i < 256; i = i + 1) begin
+      inputs(i);
+      #10;
+    end
+  end
+
+  initial
+    $monitor("in=%b y=%b idle=%b", in, y, idle);
+
+  initial
+    #2600 $finish();
+endmodule
