@@ -1,0 +1,13 @@
+//verilog code for priority encoder by structural method 
+//used instantiation of binary encoder and priority circuit
+module pri_enc8_3(in, y, idle);
+  input [7:0] in;
+  output [2:0] y;
+  output idle;
+  wire [7:0] w;
+
+  pri_ckt p1(.i(in), .h(w), .idle(idle));
+  encoder e1(.d(w), .y(y));
+
+  assign idle = (~in[0] & ~in[1] & ~in[2] & ~in[3] & ~in[4] & ~in[5] & ~in[6] & ~in[7]);
+endmodule
